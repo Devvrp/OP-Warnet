@@ -11,7 +11,10 @@ class Auth extends Controller {
     }
     public function login(): void {
         Csrf::verifyOrFail($_POST['_csrf_token'] ?? null);
-        $validator = new Validator($_POST);
+        $username = trim($_POST['username'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $validatorData = ['username' => $username, 'password' => $password];
+        $validator = new Validator($validatorData);
         $validator->required('username', 'Username')
                 ->required('password', 'Password');
         if ($validator->fails()) {
@@ -20,8 +23,8 @@ class Auth extends Controller {
             return;
         }
         $userModel = $this->model('UserModel');
-        $user = $userModel->findByUsername($_POST['username']);
-        if ($user && password_verify($_POST['password'], $user['password'])) {
+        $user = $userModel->findByUsername($username);
+        if ($user && password_verify($password, $user['password'])) {
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_nama'] = $user['nama'];

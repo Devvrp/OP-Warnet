@@ -1,26 +1,72 @@
+:root {
+    --op-black: #000000;
+    --op-charcoal: #2F4550;
+    --op-payne: #586F7C;
+    --op-light-blue: #B8DBD9;
+    --op-ghost-white: #F4F4F9;
+}
+
+[data-bs-theme="dark"] {
+    --bs-body-bg: var(--op-charcoal);
+    --bs-body-color: var(--op-ghost-white);
+    --bs-border-color: var(--op-payne);
+    --bs-card-bg: var(--op-payne);
+    --bs-card-border-color: var(--op-payne);
+    --bs-modal-bg: var(--op-payne);
+    --bs-modal-header-border-color: var(--op-charcoal);
+    --bs-modal-footer-border-color: var(--op-charcoal);
+    --bs-list-group-bg: var(--op-payne);
+    --bs-list-group-border-color: var(--op-charcoal);
+    --bs-list-group-color: var(--op-ghost-white);
+    --bs-table-bg: var(--op-payne);
+    --bs-table-border-color: var(--op-charcoal);
+    --bs-table-striped-bg: #4a5c66;
+    --bs-table-hover-bg: #4f636f;
+    --bs-secondary: var(--op-light-blue);
+    --bs-secondary-rgb: 184,219,217;
+}
+
 body {
-    background-color: #f4f7f6;
-    color: #333;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
 }
+
 .navbar {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background-color: var(--op-payne);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
+
+.navbar-brand {
+    font-weight: 700 !important;
+}
+
+.nav-link.active {
+    color: var(--op-light-blue) !important;
+}
+
+.dropdown-menu {
+    --bs-dropdown-bg: var(--op-payne);
+    --bs-dropdown-link-color: var(--op-ghost-white);
+    --bs-dropdown-link-hover-bg: var(--op-charcoal);
+    --bs-dropdown-border-color: var(--op-charcoal);
+}
+
 .pc-card {
     border-radius: 8px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     cursor: pointer;
-    border: 1px solid #e0e0e0;
-    background-color: #fff;
+    border: 1px solid var(--op-payne);
 }
+
 .pc-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
 }
+
 .pc-card .card-title {
     font-size: 1.5rem;
-    color: #343a40;
+    color: var(--op-ghost-white);
 }
+
 .pc-card.tersedia {
     border-left: 5px solid #198754;
 }
@@ -29,23 +75,22 @@ body {
 }
 .pc-card.maintenance {
     border-left: 5px solid #6c757d;
-    background-color: #e9ecef;
+    background-color: #404e57;
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.8;
 }
+
 .countdown-timer {
     font-size: 1.25rem;
     font-weight: 500;
-    color: #212529;
+    color: var(--op-ghost-white);
     letter-spacing: 1px;
 }
-.table-hover tbody tr:hover {
-    background-color: rgba(0,0,0,0.04);
-}
+
 #logContent p {
     margin: 0;
     padding: 6px 12px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--op-charcoal);
     font-family: Consolas, 'Courier New', Courier, monospace;
     font-size: 0.9rem;
     line-height: 1.4;
@@ -54,30 +99,46 @@ body {
     border-bottom: none;
 }
 .log-berbahaya {
-    color: #842029;
-    background-color: #f8d7da;
+    color: #f8d7da;
+    background-color: #842029;
     font-weight: bold;
 }
-.modal-title {
-    color: #495057;
-}
+
 .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: var(--op-light-blue);
+    border-color: var(--op-light-blue);
+    color: var(--op-charcoal);
+    font-weight: 500;
 }
-.btn-primary:hover {
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+.btn-primary:hover, .btn-primary:active {
+    background-color: #a3c9c7;
+    border-color: #a3c9c7;
+    color: var(--op-charcoal);
 }
+
+.btn-info {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+
 .img-thumbnail {
     max-width: 70px;
     height: auto;
     object-fit: cover;
+    background-color: var(--op-payne);
+    border-color: var(--op-charcoal);
 }
+
 .pc-alert-icon {
-    display: inline-block !important;
+    display: inline-block;
     animation: blink-warning 1s linear infinite;
 }
+
 @keyframes blink-warning {
     50% { opacity: 0.2; }
+}
+
+.table-dark {
+    --bs-table-bg: var(--op-charcoal);
+    --bs-table-border-color: var(--op-payne);
 }
