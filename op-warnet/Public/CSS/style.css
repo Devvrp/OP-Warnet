@@ -1,0 +1,83 @@
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.navbar {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.pc-card {
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+}
+.pc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.pc-card .card-title {
+    font-size: 1.5rem;
+    color: #343a40;
+}
+.pc-card.tersedia {
+    border-left: 5px solid #198754;
+}
+.pc-card.digunakan {
+    border-left: 5px solid #ffca2c;
+}
+.pc-card.maintenance {
+    border-left: 5px solid #6c757d;
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.countdown-timer {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #212529;
+    letter-spacing: 1px;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,0.04);
+}
+#logContent p {
+    margin: 0;
+    padding: 6px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+#logContent p:last-child {
+    border-bottom: none;
+}
+.log-berbahaya {
+    color: #842029;
+    background-color: #f8d7da;
+    font-weight: bold;
+}
+.modal-title {
+    color: #495057;
+}
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+.img-thumbnail {
+    max-width: 70px;
+    height: auto;
+    object-fit: cover;
+}
+.pc-alert-icon {
+    display: inline-block !important;
+    animation: blink-warning 1s linear infinite;
+}
+@keyframes blink-warning {
+    50% { opacity: 0.2; }
+}
