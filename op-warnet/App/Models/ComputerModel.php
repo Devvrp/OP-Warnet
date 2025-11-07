@@ -101,4 +101,12 @@ class ComputerModel {
         $this->db->execute();
         return $this->db->rowCount();
     }
+
+    public function updateStatus(int $computerId, string $status): bool {
+        $this->db->query("UPDATE computers SET status = :status, current_session_id = NULL WHERE id = :id");
+        $this->db->bind(':status', $status);
+        $this->db->bind(':id', $computerId);
+        $this->db->execute();
+        return $this->db->rowCount() > 0;
+    }
 }

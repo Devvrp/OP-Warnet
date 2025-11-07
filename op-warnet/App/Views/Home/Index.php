@@ -20,13 +20,16 @@
                                     <?= $pc['nomor_pc']; ?> 
                                     <i class="bi bi-exclamation-triangle-fill text-danger pc-alert-icon d-none" title="Aktivitas mencurigakan terdeteksi!"></i>
                                 </h5>
+                                
                                 <?php if($pc['status'] == 'tersedia'): ?>
                                     <p class="card-text text-success fw-bold">Tersedia</p>
                                     <?php if ($role === 'admin' || $role === 'operator'): ?>
-                                    <small class="text-muted">Klik untuk memulai sesi</small>
+                                        <small class="text-muted">Klik untuk memulai sesi</small>
+                                        <button class="btn btn-outline-danger btn-sm mt-2 tombolReportIssue" data-id="<?= $pc['id']; ?>"><i class="bi bi-shield-fill-exclamation"></i> Laporkan Rusak</button>
                                     <?php else: ?>
-                                    <small class="text-muted">Status: Tersedia</small>
+                                        <small class="text-muted">Status: Tersedia</small>
                                     <?php endif; ?>
+
                                 <?php elseif($pc['status'] == 'digunakan'): ?>
                                     <p class="card-text text-warning-emphasis fw-bold">Digunakan</p>
                                     <div class="countdown-timer" data-endtime="<?= $pc['end_time_unix']; ?>"></div>
@@ -40,10 +43,26 @@
                                         <button class="btn btn-danger btn-sm" title="Hentikan Sesi" data-sessionid="<?= $pc['session_id']; ?>"><i class="bi bi-power"></i></button>
                                     </div>
                                     <?php endif; ?>
+
+                                <?php elseif($pc['status'] == 'rusak_dilaporkan'): ?>
+                                    <p class="card-text text-danger fw-bold">Rusak Dilaporkan</p>
+                                    <?php if ($role === 'admin' || $role === 'maintenance'): ?>
+                                        <small class="text-muted">Menunggu perbaikan...</small>
+                                        <button class="btn btn-warning btn-sm mt-2 tombolStartRepair" data-id="<?= $pc['id']; ?>"><i class="bi bi-tools"></i> Mulai Perbaikan</button>
+                                    <?php else: ?>
+                                        <small class="text-muted">Menunggu perbaikan...</small>
+                                    <?php endif; ?>
+
                                 <?php else: ?>
                                     <p class="card-text text-secondary fw-bold">Maintenance</p>
-                                    <small class="text-muted">Tidak dapat digunakan</small>
+                                    <?php if ($role === 'admin' || $role === 'maintenance'): ?>
+                                        <small class="text-muted">Sedang diperbaiki...</small>
+                                        <button class="btn btn-success btn-sm mt-2 tombolFinishRepair" data-id="<?= $pc['id']; ?>"><i class="bi bi-check-circle-fill"></i> Selesai Perbaikan</button>
+                                    <?php else: ?>
+                                        <small class="text-muted">Sedang diperbaiki...</small>
+                                    <?php endif; ?>
                                 <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
@@ -78,10 +97,22 @@
         </div>
     </div>
 </div>
+
 <form id="stopSessionForm" action="<?= BASEURL; ?>/index.php?url=home/stopSession" method="post" style="display: none;">
     <?= Csrf::input(); ?>
     <input type="hidden" name="session_id" value="">
 </form>
+
+<form id="reportIssueForm" action="" method="post" style="display: none;">
+    <?= Csrf::input(); ?>
+</form>
+<form id="startRepairForm" action="" method="post" style="display: none;">
+    <?= Csrf::input(); ?>
+</form>
+<form id="finishRepairForm" action="" method="post" style="display: none;">
+    <?= Csrf::input(); ?>
+</form>
+
 <div class="modal fade" id="startSessionModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -181,7 +212,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
           <button type="submit" class="btn btn-success">Lanjutkan Sesi</button>
         </div>
       </form>

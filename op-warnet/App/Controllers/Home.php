@@ -118,4 +118,34 @@ class Home extends Controller {
         }
         $this->redirect(BASEURL . '/index.php');
     }
+
+    public function reportIssue($computerId): void {
+        $this->gate(['admin', 'operator']);
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { $this->redirect(BASEURL . '/index.php'); }
+        Csrf::verifyOrFail($_POST['_csrf_token'] ?? null);
+        
+        $this->model('ComputerModel')->updateStatus((int)$computerId, 'rusak_dilaporkan');
+        $this->flash('warning', 'PC #' . (int)$computerId . ' telah dilaporkan rusak.');
+        $this->redirect(BASEURL . '/index.php');
+    }
+
+    public function startRepair($computerId): void {
+        $this->gate(['admin', 'maintenance']);
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { $this->redirect(BASEURL . '/index.php'); }
+        Csrf::verifyOrFail($_POST['_csrf_token'] ?? null);
+        
+        $this->model('ComputerModel')->updateStatus((int)$computerId, 'maintenance');
+        $this->flash('info', 'Perbaikan PC #' . (int)$computerId . ' dimulai.');
+        $this->redirect(BASEURL . '/index.php');
+    }
+
+    public function finishRepair($computerId): void {
+        $this->gate(['admin', 'maintenance']);
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { $this->redirect(BASEURL . '/index.php'); }
+        Csrf::verifyOrFail($_POST['_csrf_token'] ?? null);
+        
+        $this->model('ComputerModel')->updateStatus((int)$computerId, 'tersedia');
+        $this->flash('success', 'Perbaikan PC #' . (int)$computerId . ' telah selesai.');
+        $this->redirect(BASEURL . '/index.php');
+    }
 }

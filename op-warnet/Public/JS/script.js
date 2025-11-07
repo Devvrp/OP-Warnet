@@ -183,7 +183,7 @@ $(function() {
             const isVisit = Math.random() < 0.5;
             if (!isVisit) return;
             const isUnsafe = Math.random() < 0.2;
-            const site = isUnsafe ? unsafeSites[Math.floor(Math.random() * unsafeSites.length)] : safeSites[Math.floor(Math.random() * unsafeSites.length)];
+            const site = isUnsafe ? unsafeSites[Math.floor(Math.random() * unsafeSites.length)] : safeSites[Math.floor(Math.random() * safeSites.length)];
             const time = new Date().toLocaleTimeString();
             const logClass = isUnsafe ? 'log-berbahaya' : '';
             const logEntry = { time, site, logClass };
@@ -201,4 +201,27 @@ $(function() {
             }
         });
     }, 4000);
+
+    $('.pc-card.tersedia .tombolReportIssue').on('click', function(e) {
+        e.stopPropagation();
+        const computerId = $(this).data('id');
+        if (confirm('Yakin ingin melaporkan PC #' + computerId + ' rusak?')) {
+            $('#reportIssueForm').attr('action', BASEURL + '/index.php?url=home/reportIssue/' + computerId);
+            $('#reportIssueForm').submit();
+        }
+    });
+
+    $('.pc-card.rusak_dilaporkan .tombolStartRepair').on('click', function(e) {
+        e.stopPropagation();
+        const computerId = $(this).data('id');
+        $('#startRepairForm').attr('action', BASEURL + '/index.php?url=home/startRepair/' + computerId);
+        $('#startRepairForm').submit();
+    });
+
+    $('.pc-card.maintenance .tombolFinishRepair').on('click', function(e) {
+        e.stopPropagation();
+        const computerId = $(this).data('id');
+        $('#finishRepairForm').attr('action', BASEURL + '/index.php?url=home/finishRepair/' + computerId);
+        $('#finishRepairForm').submit();
+    });
 });
